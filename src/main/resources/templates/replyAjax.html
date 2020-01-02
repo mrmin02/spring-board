@@ -1,0 +1,13 @@
+<li th:each="reply : ${replyList}">
+ 	<!-- ${#authentication.principal.id} -->
+ 		<div th:class="'div'+${reply.getReplyid()}" th:if="${reply.getMemberid() eq #authentication.principal.username}">
+ 			<p>본인</p>
+ 			<pre th:class="'answer'+${reply.getReplyid()}" th:text="${reply.getComment()}"></pre>
+ 			<button type="button" th:onclick="'modi_click('+${reply.getReplyid()}+','+${post.getPostid()}+')'">수정</button>
+ 			<button type="button" th:onclick="'delete_ans('+${reply.getReplyid()}+','+${post.getPostid()}+')'">삭제</button>	
+ 		</div>
+ 		<div th:unless="${reply.getMemberid() eq #authentication.principal.username}">
+ 			<p>익명</p>
+ 			<pre th:text="${reply.getComment()}"></pre>	
+ 		</div>
+</li>

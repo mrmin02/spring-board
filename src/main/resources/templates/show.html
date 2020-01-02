@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-secutiry"
+th:replace="~{layout::layout(~{::title},~{::section},~{::script})}">
+<head>
+<meta charset="UTF-8">
+<script th:src="@{/show.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-1.12.4.js}"></script>
+<title>글</title>
+</head>
+<body>
+	<section>
+		<br>
+		제목:<p th:text="${post.getTitle()}"></p><br>
+		내용:<pre th:text="${post.getContents()}"></pre>	
+		
+		<th:block th:if="${post.getMemberid() eq #authentication.principal.username}">
+			<a th:href="@{/posts/{postid}/modify(postid=${post.getPostid()})}">수정</a>
+			<input type="hidden" class="token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<button type="button" th:onclick="'deletePost('+ ${post.getPostid()} + ')'">삭제</button>
+		</th:block>
+		
+		<br><br>
+			<textArea type="text" class="reply" required></textArea>
+			<input type="hidden" class="token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<button type="button" th:onclick="'addReply('+${post.getPostid()}+')'">댓글 등록</button>
+	
+	<h3>Comment</h3>
+				<input type="hidden" class="Reply_token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+		<div>
+			<ul class="replyUl">
+			 	<li th:each="reply : ${replyList}">
+			 	<!-- ${#authentication.principal.id} -->
+			 		<div th:class="'div'+${reply.getReplyid()}" th:if="${reply.getMemberid() eq #authentication.principal.username}">
+			 			<p>본인</p>
+			 			<pre th:class="'answer'+${reply.getReplyid()}" th:text="${reply.getComment()}"></pre>
+			 			<button type="button" th:onclick="'modi_click('+${reply.getReplyid()}+','+${post.getPostid()}+')'">수정</button>
+			 			<button type="button" th:onclick="'delete_ans('+${reply.getReplyid()}+','+${post.getPostid()}+')'">삭제</button>	
+			 		</div>
+			 		<div th:unless="${reply.getMemberid() eq #authentication.principal.username}">
+			 			<p>익명</p>
+			 			<pre th:text="${reply.getComment()}"></pre>	
+			 		</div>
+			 	</li>
+			</ul>
+		</div>
+	</section>
+</body>
+</html>

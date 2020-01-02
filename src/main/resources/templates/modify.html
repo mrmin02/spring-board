@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{layout::layout(~{::title},~{::section},~{::script})}">
+<head>
+<meta charset="UTF-8">
+<title>글 수정</title>
+<script th:src="@{/modify.js}"></script>
+<script th:src="@{https://code.jquery.com/jquery-1.12.4.js}"></script>
+
+</head>
+<body>
+	<section>
+		제목 :<input type="text" class="title" th:value="${post.getTitle()}"/><br><br>
+		내용  <br>
+		<textArea type="text"  class="content" th:text="${post.getContents()}" escapeXml="false"></textArea><br><br>
+		<input type="hidden" class="token"th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+		<button type="button" th:onclick="'modify('+ ${post.getPostid()} + ')'">수정 완료</button>
+	</section>
+</body>
+</html>

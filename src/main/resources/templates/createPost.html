@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{layout::layout(~{::title},~{::section},_)}" >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<section>
+		<form method="POST" action="/posts">
+			제목<input type="text" name="title" required/><br>
+			내용<textarea type="text" name="content" required></textarea>
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<input type="submit" value="글 작성"/>
+		</form>
+	</section>
+</body>
+</html>

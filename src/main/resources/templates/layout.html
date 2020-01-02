@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-secutiry"
+th:fragment="layout(title,content,js)">
+<head>
+<meta charset="UTF-8">
+<title th:replace="${title}"></title>
+<script type="text/javascript" th:replace="${js}"></script>
+</head>
+<body>
+	<th:block sec:authorize="isAuthenticated()">
+		<span sec:authentication="principal.username"></span>님 반가워요!
+		<form action="/logout" method="post">
+			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			<input type="submit" value="Logout">
+		</form>
+	</th:block>
+	<h3> 익명 게시판 </h3>
+	<div>
+	 <a href="/">글 전체 목록</a><br><br>
+	</div>
+	
+	<div th:replace="${content}"></div>
+</body>
+</html>

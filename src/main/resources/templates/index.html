@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+th:replace="~{layout::layout(~{::title},~{::section},_)}">
+<head>
+<meta charset="UTF-8">
+<title>게시글 리스트</title>
+</head>
+<body>
+	<section>
+	 게시글 리스트 화면
+	 <ul>  
+	 	<li th:each="post: ${postList}"><a href="/" th:href="@{/posts/{postid}(postid=${post.getPostid()})}"><p th:text="${post.getTitle()}"></p></a></li> 
+	 </ul>
+	 <a href="/posts/create">글쓰기</a>
+	</section>
+</body>
+</html>
