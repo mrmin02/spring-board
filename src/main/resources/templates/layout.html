@@ -4,6 +4,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-secutiry"
 th:fragment="layout(title,content,js)">
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 <title th:replace="${title}"></title>
 <script type="text/javascript" th:replace="${js}"></script>
 </head>

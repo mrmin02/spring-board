@@ -13,7 +13,9 @@ th:replace="~{layout::layout(~{::title},~{::section},~{::script})}">
 		<br>
 		제목:<p th:text="${post.getTitle()}"></p><br>
 		내용:<pre th:text="${post.getContents()}"></pre>	
-		
+		<th:block th:if="${post.getAttach()}">
+			<br><img th:src="@{'/uploads/'+${post.getAttach()}}"/><br>
+		</th:block>
 		<th:block th:if="${post.getMemberid() eq #authentication.principal.username}">
 			<a th:href="@{/posts/{postid}/modify(postid=${post.getPostid()})}">수정</a>
 			<input type="hidden" class="token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

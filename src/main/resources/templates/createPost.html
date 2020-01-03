@@ -7,10 +7,11 @@ th:replace="~{layout::layout(~{::title},~{::section},_)}" >
 </head>
 <body>
 	<section>
-		<form method="POST" action="/posts">
-			제목<input type="text" name="title" required/><br>
-			내용<textarea type="text" name="content" required></textarea>
+		<form method="POST" enctype="multipart/form-data" action="/posts">
+			제목<input type="text"  name="title" required/><br>
+			내용<textarea type="text" name="content" required></textarea><br><br>
 			<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+			이미지 첨부: <input type="file" name="file" /><br>   
 			<input type="submit" value="글 작성"/>
 		</form>
 	</section>

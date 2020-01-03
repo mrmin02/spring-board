@@ -7,7 +7,7 @@ function deletePost(postid){
         data: {"_csrf":csrf},
     }).done(function(data){
     	console.log(data);
-    	location.href="/posts";
+    	location.href="/";
     });
 	
 }
